@@ -214,7 +214,21 @@
 <a class="text-stone-600 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-100 transition-colors duration-300" href="#chi-siamo">Chi Siamo</a>
 <a class="bg-primary text-on-primary px-6 py-2 text-sm font-label tracking-widest uppercase hover:opacity-90 transition-all scale-95 active:scale-90" href="#register">Riserva il tuo posto</a>
 </div>
+<!-- Hamburger button (mobile) -->
+<button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-10 h-10 text-stone-700 dark:text-stone-300" aria-label="Apri menu" aria-expanded="false">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
 </nav>
+<!-- Mobile menu -->
+<div id="mobile-menu" class="md:hidden hidden bg-stone-50/95 dark:bg-stone-900/95 backdrop-blur-md border-b border-stone-200/50">
+<div class="flex flex-col px-6 py-4 space-y-4">
+<a class="text-stone-600 dark:text-stone-400 font-medium py-2 hover:text-stone-900 transition-colors" href="#problemi">Problemi</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium py-2 hover:text-stone-900 transition-colors" href="#metodo">Metodo</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium py-2 hover:text-stone-900 transition-colors" href="#casi">Casi Studio</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium py-2 hover:text-stone-900 transition-colors" href="#chi-siamo">Chi Siamo</a>
+<a class="bg-primary text-on-primary px-6 py-3 text-sm font-label tracking-widest uppercase text-center hover:opacity-90 transition-all" href="#register">Riserva il tuo posto</a>
+</div>
+</div>
 <div class="bg-stone-200/20 dark:bg-stone-800/20 h-[1px]"></div>
 </header>
 <!-- 1. HERO SECTION (CRO OPTIMIZED) -->
@@ -865,6 +879,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }, { threshold: 0.2 });
       regObs.observe(registerEl);
     }
+  }
+
+  /* Mobile Menu Toggle */
+  var menuBtn = document.getElementById('mobile-menu-btn');
+  var mobileMenu = document.getElementById('mobile-menu');
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', function() {
+      var isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', !isOpen);
+      menuBtn.querySelector('.material-symbols-outlined').textContent = isOpen ? 'menu' : 'close';
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.querySelector('.material-symbols-outlined').textContent = 'menu';
+      });
+    });
   }
 
   /* Smooth Scroll */
