@@ -407,7 +407,8 @@
 <div class="mt-12 p-10 border border-primary-container bg-primary-container/5 text-center shadow-xl" id="assessment-result" style="display:none;">
 <p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-3">Analisi Rilevata</p>
 <div class="font-headline text-4xl text-primary font-bold mb-4" id="assessment-title"></div>
-<p class="max-w-md mx-auto text-sm text-on-surface-variant leading-relaxed" id="assessment-desc"></p>
+<p class="max-w-md mx-auto text-sm text-on-surface-variant leading-relaxed mb-6" id="assessment-desc"></p>
+<a href="#register" class="inline-block bg-primary text-on-primary px-10 py-4 font-label text-xs font-bold tracking-widest uppercase shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">Riserva il tuo posto</a>
 </div>
 </div>
 </section>
@@ -740,6 +741,11 @@
 </div>
 </div>
 </section>
+<!-- Sticky CTA Mobile -->
+<div id="sticky-cta" class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-md border-t border-outline-variant/30 p-4 translate-y-full transition-transform duration-300" aria-hidden="true">
+<a class="block w-full text-center bg-primary text-on-primary py-4 font-label text-xs font-bold tracking-widest uppercase shadow-lg" href="#register">Riserva il tuo posto</a>
+</div>
+
 <!-- Footer -->
 <footer class="bg-stone-50 dark:bg-stone-950 w-full py-16 border-t border-stone-200/50">
 <div class="flex flex-col md:flex-row justify-between items-center px-12 space-y-8 md:space-y-0 max-w-screen-2xl mx-auto">
@@ -815,6 +821,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (valid) {
         form.style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
+        if (stickyCta) { stickyCta.classList.add('translate-y-full'); stickyCta.setAttribute('aria-hidden', 'true'); }
       }
     });
   }
@@ -828,6 +835,36 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }, { threshold: 0.5 });
     obs.observe(fill.parentElement);
+  }
+
+  /* Sticky CTA Mobile */
+  var stickyCta = document.getElementById('sticky-cta');
+  var heroEl = document.querySelector('section');
+  var registerEl = document.getElementById('register');
+  if (stickyCta && heroEl) {
+    var stickyObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) {
+          stickyCta.classList.remove('translate-y-full');
+          stickyCta.setAttribute('aria-hidden', 'false');
+        } else {
+          stickyCta.classList.add('translate-y-full');
+          stickyCta.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0 });
+    stickyObs.observe(heroEl);
+    if (registerEl) {
+      var regObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            stickyCta.classList.add('translate-y-full');
+            stickyCta.setAttribute('aria-hidden', 'true');
+          }
+        });
+      }, { threshold: 0.2 });
+      regObs.observe(registerEl);
+    }
   }
 
   /* Smooth Scroll */
