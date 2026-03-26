@@ -1,0 +1,16 @@
+node_modules/
+__pycache__/
+.claude/settings.local.json
+.claude/docs/session-notes/*.md
+!.claude/docs/session-notes/.gitkeep
+.claude/skills/orson/engine/dist/
+.emmet/
+.forge/
+.seurat/
+.orson/
+.scribe/
+.ghostwriter/
+.heimdall/
+*.preview.html
+video-preview.html
+REFERENCES/

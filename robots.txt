@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# AI Search Bots
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap
+Sitemap: https://veritable-sb.it/sitemap.xml
